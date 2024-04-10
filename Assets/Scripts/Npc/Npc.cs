@@ -1,3 +1,4 @@
+[System.Serializable]
 public class Npc
 {
     private int _id;
