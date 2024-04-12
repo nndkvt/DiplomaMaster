@@ -7,7 +7,9 @@ public static class Player
     private static float _moralLvl = 50;
     private static int _difficultyLvl = 2;
 
+    public static int Level { get => _level; }
     public static float MoralLvl { get => _moralLvl; set => _moralLvl = value; }
+    public static int DifficultyLevel { get => _difficultyLvl; }
 
     public static event Action OnPlayerStatsChanged;
 

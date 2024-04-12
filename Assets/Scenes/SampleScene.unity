@@ -431,6 +431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 636134172}
   - component: {fileID: 636134171}
+  - component: {fileID: 636134173}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -468,6 +469,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &636134173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636134170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a823198ba48c144882e1df866f82fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _questItemsData: {fileID: 11400000, guid: cf22cdf0af81d06499bed50755a344eb, type: 2}
+  _minQuestItemsNum: 1
+  _maxQuestItemsNum: 20
+  _minTimeLimitInMinutes: 5
 --- !u!1 &709085724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1275,7 @@ GameObject:
   - component: {fileID: 990902998}
   - component: {fileID: 990902997}
   m_Layer: 5
-  m_Name: LevelManipulateArea (1)
+  m_Name: DifficultyManipulateArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
