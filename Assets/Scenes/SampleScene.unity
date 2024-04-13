@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 636134172}
   - component: {fileID: 636134171}
   - component: {fileID: 636134173}
+  - component: {fileID: 636134175}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -485,6 +486,20 @@ MonoBehaviour:
   _minQuestItemsNum: 1
   _maxQuestItemsNum: 20
   _minTimeLimitInMinutes: 5
+--- !u!114 &636134175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636134170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5695e2fc630445546b08ff411494a40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _taskArea: {fileID: 1781155414}
+  _questViewPrefab: {fileID: 5255097039011717099, guid: ea1179f1933c9e84093fb9dd645d603a, type: 3}
 --- !u!1 &709085724
 GameObject:
   m_ObjectHideFlags: 0

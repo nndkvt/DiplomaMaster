@@ -26,7 +26,7 @@ public class NpcView : MonoBehaviour
 
         UpdateTimer();
 
-        StartCoroutine(QuestTimer());
+        StartCoroutine(StartQuestTimer());
 
         _takeQuestButton.onClick.AddListener(OnQuestButtonPressed);
     }
@@ -47,7 +47,7 @@ public class NpcView : MonoBehaviour
         _npc.AssignQuest(newQuest);
     }
 
-    private IEnumerator QuestTimer()
+    private IEnumerator StartQuestTimer()
     {
         while (_timeTillQuest > 0)
         {
@@ -67,9 +67,9 @@ public class NpcView : MonoBehaviour
 
     private void OnQuestButtonPressed()
     {
-        StopCoroutine(QuestTimer());
+        StopCoroutine(StartQuestTimer());
 
-        // —юда логику добавлени€ нового квеста
+        QuestViewGenerator.Instance.CreateQuestView(_npc);
 
         _takeQuestButton.gameObject.SetActive(false);
 

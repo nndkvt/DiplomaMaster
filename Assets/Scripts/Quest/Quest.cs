@@ -14,4 +14,14 @@ public class Quest
         _increaseRel = increaseRel;
         _decreaseRel = decreaseRel;
     }
+
+    public QuestItem GetQuestItem() 
+    { 
+        return _item; 
+    }
+
+    public int GetItemNum()
+    {
+        return _itemNum;
+    }
 }
