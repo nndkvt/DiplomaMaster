@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,8 +27,7 @@ public class NpcView : MonoBehaviour
 
         _takeQuestButton.onClick.AddListener(OnQuestButtonPressed);
 
-        if (_npc.ActiveQuest == null && 
-            !ActiveQuests.TryGetQuestByNpcIndex(_npc.Id, out Quest quest))
+        if (!ActiveQuests.TryGetQuestByNpcIndex(_npc.Id, out Quest quest))
         {
             ActivateQuestTimer();
         }
@@ -56,6 +56,8 @@ public class NpcView : MonoBehaviour
 
     private void ActivateQuestTimer()
     {
+        _timerText.gameObject.SetActive(true);
+
         _timeTillQuest = random.Next(0, _maxQuestWaitTime);
 
         UpdateTimer();
@@ -87,11 +89,9 @@ public class NpcView : MonoBehaviour
 
         ActiveQuests.AddQuest(_npc.ActiveQuest);
 
-        QuestViewGenerator.Instance.CreateQuestView(this);
+        QuestViewGenerator.Instance.CreateQuestView(_npc);
 
         _takeQuestButton.gameObject.SetActive(false);
-
-        _timerText.gameObject.SetActive(true);
     }
 
     public Npc GetNpc()
@@ -99,7 +99,7 @@ public class NpcView : MonoBehaviour
         return _npc;
     }
 
-    public void AttachedQuestEnded(float deltaRel = 0)
+    public void AttachedQuestEnded(float deltaRel)
     {
         _npc.DetatchQuest();
 

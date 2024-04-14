@@ -12,8 +12,7 @@ public class QuestView : MonoBehaviour
     [SerializeField] private Button _completeButton;
     [SerializeField] private Button _minusSecondsButton;
 
-    public event Action<float> QuestComplete;
-    public event Action<float> QuestFailed;
+    private ActiveQuests ActiveQuests => DataHolder.Instance.ActiveQuests;
 
     private int _timerTime;
 
@@ -88,7 +87,9 @@ public class QuestView : MonoBehaviour
             UpdateTimer();
         }
 
-        QuestFailed?.Invoke(_quest.DecreaseRel);
+        // Расчет взаимоотношений
+
+        ActiveQuests.RemoveQuestByNpcIndex(_quest.NpcIndex);
         Destroy(gameObject);
     }
 
@@ -103,7 +104,9 @@ public class QuestView : MonoBehaviour
 
     private void OnCompleteButtonPressed()
     {
-        QuestComplete?.Invoke(_quest.IncreaseRel);
+        // Расчет взаимоотношений
+
+        ActiveQuests.RemoveQuestByNpcIndex(_quest.NpcIndex);
         Destroy(gameObject);
     }
 

@@ -1,3 +1,5 @@
+using System;
+
 [System.Serializable]
 public class Npc
 {
@@ -10,6 +12,8 @@ public class Npc
     public string Name { get => _name; }
     public bool[] Character { get => _character; }
     public Quest ActiveQuest { get => _activeQuest; }
+
+    public event Action ActiveQuestComplete;
 
     public Npc(int id, string name, bool[] character)
     {

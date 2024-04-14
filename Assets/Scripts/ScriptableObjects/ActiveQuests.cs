@@ -36,4 +36,16 @@ public class ActiveQuests : ScriptableObject
     {
         _data.Add(quest);
     }
+
+    public void RemoveQuestByNpcIndex(int npcIndex)
+    {
+        for (int i = 0; i < _data.Count; i++)
+        {
+            if (_data[i].NpcIndex == npcIndex)
+            {
+                _data.RemoveAt(i);
+                return;
+            }
+        }
+    }
 }

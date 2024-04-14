@@ -14,21 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
   - _item:
-      Name: "\u041A\u0430\u043C\u0435\u043D\u044C"
+      Name: "\u0422\u044E\u043B\u044C\u043F\u0430\u043D"
       Type: 0
-      Level: 3
-    _itemNum: 1
-    _timeLimit: 300
-    _increaseRel: 5
-    _decreaseRel: -5
-    _npcIndex: 10
-  - _item:
-      Name: "\u0414\u0440\u0435\u0432\u0435\u0441\u0438\u043D\u0430"
-      Type: 0
-      Level: 3
-    _itemNum: 1
+      Level: 1
+    _itemNum: 5
     _timeLimit: -1
     _increaseRel: 5
     _decreaseRel: -5
-    _npcIndex: 4
-  _clearOnStart: 1
+    _npcIndex: 5
+  - _item:
+      Name: "\u041A\u043E\u0436\u0430"
+      Type: 0
+      Level: 2
+    _itemNum: 4
+    _timeLimit: 300
+    _increaseRel: 5
+    _decreaseRel: -5
+    _npcIndex: 2
+  - _item:
+      Name: "\u041A\u0430\u043C\u0435\u043D\u044C"
+      Type: 0
+      Level: 3
+    _itemNum: 2
+    _timeLimit: 300
+    _increaseRel: 5
+    _decreaseRel: -5
+    _npcIndex: 1
+  - _item:
+      Name: "\u0422\u044E\u043B\u044C\u043F\u0430\u043D"
+      Type: 0
+      Level: 1
+    _itemNum: 2
+    _timeLimit: 300
+    _increaseRel: 5
+    _decreaseRel: -5
+    _npcIndex: 9
+  - _item:
+      Name: "\u041A\u043E\u0436\u0430"
+      Type: 0
+      Level: 2
+    _itemNum: 2
+    _timeLimit: -1
+    _increaseRel: 5
+    _decreaseRel: -5
+    _npcIndex: 6
+  _clearOnStart: 0
