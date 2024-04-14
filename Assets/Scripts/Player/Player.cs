@@ -22,6 +22,12 @@ public static class Player
     public static void DecreaseLevel()
     {
         _level--;
+
+        if (_level < 1)
+        {
+            _level = 1;
+        }
+
         OnPlayerStatsChanged?.Invoke();
     }
 

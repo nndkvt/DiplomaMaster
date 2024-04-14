@@ -15,10 +15,13 @@ public class QuestViewGenerator : MonoBehaviour
         }
     }
 
-    public void CreateQuestView(Npc npc)
+    public void CreateQuestView(NpcView npcView)
     {
         QuestView newQuestView = Instantiate(_questViewPrefab, _taskArea);
 
-        newQuestView.Init(npc);
+        newQuestView.QuestComplete += npcView.AttachedQuestEnded;
+        newQuestView.QuestFailed += npcView.AttachedQuestEnded;
+
+        newQuestView.Init(npcView.GetNpc());
     }
 }

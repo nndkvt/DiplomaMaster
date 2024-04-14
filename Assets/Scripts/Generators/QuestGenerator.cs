@@ -44,7 +44,7 @@ public class QuestGenerator : MonoBehaviour
 
         int itemNum = random.Next(_minQuestItemsNum, maxItemNum);
 
-        float timeProb = Player.DifficultyLevel / (3 * 3);
+        float timeProb = (float)Player.DifficultyLevel / (float)(3 * 3);
 
         float timeLimit = -1;
 
@@ -58,6 +58,7 @@ public class QuestGenerator : MonoBehaviour
             }
         }
 
+        /*
         MLModel.ModelInput modelInput = new MLModel.ModelInput(npc.Character, 75, questItem.Level);
 
         float increaseRelValue = MLModel.ConsumeModel.Predict(modelInput).Score;
@@ -65,5 +66,9 @@ public class QuestGenerator : MonoBehaviour
         float decreaseRelValue = increaseRelValue / 2;
 
         return new Quest(questItem, itemNum, timeLimit, increaseRelValue, decreaseRelValue);
+        */
+
+        // Testing
+        return new Quest(questItem, itemNum, timeLimit, 5, -5, npc.Id);
     }
 }

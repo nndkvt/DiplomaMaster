@@ -1,10 +1,10 @@
 [System.Serializable]
 public class Npc
 {
-    private int _id;
-    private string _name;
-    private bool[] _character;
-    private Quest _activeQuest;
+    [UnityEngine.SerializeField] private int _id;
+    [UnityEngine.SerializeField] private string _name;
+    [UnityEngine.SerializeField] private bool[] _character;
+    [UnityEngine.SerializeField] private Quest _activeQuest;
 
     public int Id { get => _id; }
     public string Name { get => _name; }
@@ -22,5 +22,10 @@ public class Npc
     public void AssignQuest(Quest newQuest)
     {
         _activeQuest = newQuest;
+    }
+
+    public void DetatchQuest()
+    {
+        _activeQuest = null;
     }
 }

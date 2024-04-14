@@ -7,9 +7,34 @@ public class NpcGenerator : MonoBehaviour
     [SerializeField] private Transform _npcHolder;
     [SerializeField] private NpcView _npcPrefab;
 
+    private CreatedNpcs NpcData => DataHolder.Instance.NpcData;
+
     private int _npcCount;
 
     private void Awake()
+    {
+        // ѕроверка на существование данных персонажей
+        if (NpcData.Data.Count != 0)
+        {
+            LoadCreatedNpcs();
+        }
+        else
+        {
+            GenerateNewNpcs();
+        }
+    }
+
+    private void LoadCreatedNpcs()
+    {
+        foreach (Npc npc in NpcData.Data)
+        {
+            NpcView newNpcView = Instantiate(_npcPrefab, _npcHolder);
+
+            newNpcView.Init(npc);
+        }
+    }
+
+    private void GenerateNewNpcs()
     {
         Random random = new Random();
 
@@ -17,7 +42,7 @@ public class NpcGenerator : MonoBehaviour
 
         for (int i = 0; i < _npcCount; i++)
         {
-            var newNpcView = Instantiate(_npcPrefab, _npcHolder);
+            NpcView newNpcView = Instantiate(_npcPrefab, _npcHolder);
 
             string npcName = _namesData.GetRandomName();
 
@@ -25,10 +50,12 @@ public class NpcGenerator : MonoBehaviour
 
             Npc newNpc = new Npc(i + 1, npcName, character);
 
+            NpcData.AddNpc(newNpc);
+
             newNpcView.Init(newNpc);
         }
 
-        InitialRelationshipGenerator.GenerateInitialRelationshipValues(_npcCount);
+        RelationshipDataManipulator.GenerateInitialRelationshipValues(_npcCount);
     }
 
     private bool[] GenerateRandomCharacter()
@@ -37,7 +64,7 @@ public class NpcGenerator : MonoBehaviour
 
         Random random = new Random();
 
-        for (int i =0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             bool characterValue = random.NextDouble() > 0.5 ? true : false;
 
