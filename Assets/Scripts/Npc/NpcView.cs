@@ -16,6 +16,7 @@ public class NpcView : MonoBehaviour
     private float _timeTillQuest = 0;
 
     private ActiveQuests ActiveQuests => DataHolder.Instance.ActiveQuests;
+    private ActiveQuests GeneratedQuests => DataHolder.Instance.GeneratedQuests;
 
     private Random random = new Random();
 
@@ -23,18 +24,24 @@ public class NpcView : MonoBehaviour
     {
         _npc = npc;
 
+        _npc.OnActiveQuestComplete += AttachedQuestEnded;
+
         _nameText.text = _npc.Name;
 
         _takeQuestButton.onClick.AddListener(OnQuestButtonPressed);
 
-        if (!ActiveQuests.TryGetQuestByNpcIndex(_npc.Id, out Quest quest))
+        if (ActiveQuests.TryGetQuestByNpcIndex(_npc.Id, out Quest quest))
         {
-            ActivateQuestTimer();
+            _npc.AssignQuest(quest);
+        }
+        else if (GeneratedQuests.TryGetQuestByNpcIndex(_npc.Id, out Quest quest1))
+        {
+            _npc.AssignQuest(quest1);
+            _takeQuestButton.gameObject.SetActive(true);
         }
         else
         {
-            ActiveQuests.TryGetQuestByNpcIndex(_npc.Id, out Quest newQuest);
-            _npc.AssignQuest(newQuest);
+            ActivateQuestTimer();
         }
     }
 
@@ -52,13 +59,15 @@ public class NpcView : MonoBehaviour
         Quest newQuest = QuestGenerator.Instance.GenerateQuest(_npc);
 
         _npc.AssignQuest(newQuest);
+
+        GeneratedQuests.AddQuest(newQuest);
     }
 
     private void ActivateQuestTimer()
     {
         _timerText.gameObject.SetActive(true);
 
-        _timeTillQuest = random.Next(0, _maxQuestWaitTime);
+        _timeTillQuest = random.Next(5, _maxQuestWaitTime);
 
         UpdateTimer();
 
@@ -87,23 +96,14 @@ public class NpcView : MonoBehaviour
     {
         StopCoroutine(StartQuestTimer());
 
-        ActiveQuests.AddQuest(_npc.ActiveQuest);
-
-        QuestViewGenerator.Instance.CreateQuestView(_npc);
+        QuestAcceptWindow.Instance.Init(_npc.ActiveQuest);
 
         _takeQuestButton.gameObject.SetActive(false);
     }
 
-    public Npc GetNpc()
+    private void AttachedQuestEnded(float deltaRel)
     {
-        return _npc;
-    }
-
-    public void AttachedQuestEnded(float deltaRel)
-    {
-        _npc.DetatchQuest();
-
-        Debug.Log($"Quest Complete for npc {_npc.Name}");
+        Debug.Log($"Quest Complete for npc {_npc.Name}, relationship changed by {deltaRel}");
 
         ActivateQuestTimer();
     }

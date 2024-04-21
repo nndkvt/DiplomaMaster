@@ -5,7 +5,10 @@ public class DataHolder : MonoBehaviour
 {
     public CreatedNpcs NpcData;
     public ActiveQuests ActiveQuests;
+    public ActiveQuests GeneratedQuests;
     public Dictionary<NpcView, QuestView> AttachedQuests;
+
+    [SerializeField] private bool _clearDataOnStart;
 
     public static DataHolder Instance;
 
@@ -13,7 +16,8 @@ public class DataHolder : MonoBehaviour
     {
         Instance = this;
 
-        NpcData.ClearData();
-        ActiveQuests.ClearData();
+        NpcData.ClearData(_clearDataOnStart);
+        ActiveQuests.ClearData(_clearDataOnStart);
+        GeneratedQuests.ClearData(_clearDataOnStart);
     }
 }

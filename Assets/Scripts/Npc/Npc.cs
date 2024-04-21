@@ -13,7 +13,7 @@ public class Npc
     public bool[] Character { get => _character; }
     public Quest ActiveQuest { get => _activeQuest; }
 
-    public event Action ActiveQuestComplete;
+    public event Action<float> OnActiveQuestComplete;
 
     public Npc(int id, string name, bool[] character)
     {
@@ -21,6 +21,18 @@ public class Npc
         _name = name;
         _character = character;
         _activeQuest = null;
+
+        OnActiveQuestComplete += DetatchQuest;
+    }
+
+    ~Npc()
+    {
+        OnActiveQuestComplete -= DetatchQuest;
+    }
+
+    public void QuestCompleted(float deltaRel = 0)
+    {
+        OnActiveQuestComplete?.Invoke(deltaRel);
     }
 
     public void AssignQuest(Quest newQuest)
@@ -28,8 +40,13 @@ public class Npc
         _activeQuest = newQuest;
     }
 
-    public void DetatchQuest()
+    private void DetatchQuest()
     {
         _activeQuest = null;
+    }
+
+    private void DetatchQuest(float num)
+    {
+        DetatchQuest();
     }
 }

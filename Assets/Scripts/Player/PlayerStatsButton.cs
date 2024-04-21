@@ -10,11 +10,8 @@ public enum PlayerStatToChange
 [RequireComponent(typeof(Button))]
 public class PlayerStatsButton : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerStatToChange _stat;
-
-    [SerializeField]
-    private bool _changeDirection;
+    [SerializeField] private PlayerStatToChange _stat;
+    [SerializeField] private bool _changeDirection;
 
     private Button _button;
 

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ActiveQuests", menuName = "Quest/ActiveQuests")]
 public class ActiveQuests : ScriptableObject
 {
     [SerializeField] private List<Quest> _data;
-    [SerializeField] private bool _clearOnStart;
 
     public List<Quest> Data { get => _data; }
 
@@ -24,9 +24,9 @@ public class ActiveQuests : ScriptableObject
         return false;
     }
 
-    public void ClearData()
+    public void ClearData(bool isClearData)
     {
-        if (_clearOnStart)
+        if (isClearData)
         {
             _data.Clear();
         }
@@ -37,13 +37,25 @@ public class ActiveQuests : ScriptableObject
         _data.Add(quest);
     }
 
-    public void RemoveQuestByNpcIndex(int npcIndex)
+    public void RemoveQuest(Quest quest)
     {
         for (int i = 0; i < _data.Count; i++)
         {
-            if (_data[i].NpcIndex == npcIndex)
+            if (_data[i].NpcIndex == quest.NpcIndex)
             {
                 _data.RemoveAt(i);
+                return;
+            }
+        }
+    }
+
+    public void UpdateTimeLimit(float time, Quest quest)
+    {
+        for (int i = 0; i < _data.Count; i++)
+        {
+            if (_data[i].NpcIndex == quest.NpcIndex)
+            {
+                _data[i].UpdateTime(time);
                 return;
             }
         }

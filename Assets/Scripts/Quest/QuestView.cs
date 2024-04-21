@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -18,16 +17,16 @@ public class QuestView : MonoBehaviour
 
     private Quest _quest;
 
-    public void Init(Npc npc)
+    public void Init(Quest quest)
     {
-        _npcName.text = npc.Name;
-        _quest = npc.ActiveQuest;
+        _npcName.text = DataHolder.Instance.NpcData.GetNpcByIndex(quest.NpcIndex).Name;
+        _quest = quest;
 
         SetQuestDescription(_quest);
 
         _completeButton.onClick.AddListener(OnCompleteButtonPressed);
 
-        if (npc.ActiveQuest.TimeLimit > 0)
+        if (quest.TimeLimit > 0)
         {
             ActivateTimer(_quest);
             _minusSecondsButton.onClick.AddListener(OnMinusSecondsButtonPressed);
@@ -85,11 +84,17 @@ public class QuestView : MonoBehaviour
 
             _timerTime--;
             UpdateTimer();
+
+            ActiveQuests.UpdateTimeLimit(_timerTime, _quest);
         }
 
-        // Расчет взаимоотношений
+        // Расчет взаимоотношений и завершение квеста
+        RelationshipDataManipulator.RecalculateRelationships(_quest.NpcIndex, _quest.DecreaseRel);
 
-        ActiveQuests.RemoveQuestByNpcIndex(_quest.NpcIndex);
+        Npc npc = DataHolder.Instance.NpcData.GetNpcByIndex(_quest.NpcIndex);
+        npc.QuestCompleted(_quest.DecreaseRel);
+
+        ActiveQuests.RemoveQuest(_quest);
         Destroy(gameObject);
     }
 
@@ -98,15 +103,27 @@ public class QuestView : MonoBehaviour
         int minutes = _timerTime / 60;
         int seconds = _timerTime % 60;
 
-        _timerText.text = minutes.ToString() + ":" +
+        if (seconds.ToString().Length == 1)
+        {
+            _timerText.text = minutes.ToString() + ":0" +
                             seconds.ToString();
+        }
+        else
+        {
+            _timerText.text = minutes.ToString() + ":" +
+                            seconds.ToString();
+        }
     }
 
     private void OnCompleteButtonPressed()
     {
-        // Расчет взаимоотношений
+        // Расчет взаимоотношений и завершение квеста
+        RelationshipDataManipulator.RecalculateRelationships(_quest.NpcIndex, _quest.IncreaseRel);
 
-        ActiveQuests.RemoveQuestByNpcIndex(_quest.NpcIndex);
+        Npc npc = DataHolder.Instance.NpcData.GetNpcByIndex(_quest.NpcIndex);
+        npc.QuestCompleted(_quest.IncreaseRel);
+
+        ActiveQuests.RemoveQuest(_quest);
         Destroy(gameObject);
     }
 

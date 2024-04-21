@@ -24,4 +24,9 @@ public class Quest
         _decreaseRel = decreaseRel;
         _npcIndex = npcIndex;
     }
+
+    public void UpdateTime(float time)
+    {
+        _timeLimit = time;
+    }
 }

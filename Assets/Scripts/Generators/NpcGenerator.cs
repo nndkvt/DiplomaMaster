@@ -32,6 +32,9 @@ public class NpcGenerator : MonoBehaviour
 
             newNpcView.Init(npc);
         }
+
+        RelationshipDataManipulator.LoadRelationshipData();
+        RelationshipDataManipulator.DebugLogRelationships();
     }
 
     private void GenerateNewNpcs()

@@ -5,29 +5,23 @@ public class QuestViewGenerator : MonoBehaviour
     [SerializeField] private Transform _taskArea;
     [SerializeField] private QuestView _questViewPrefab;
 
-    private CreatedNpcs NpcData => DataHolder.Instance.NpcData;
     private ActiveQuests ActiveQuests => DataHolder.Instance.ActiveQuests;
 
     public static QuestViewGenerator Instance;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        Instance = this;
 
         foreach (Quest quest in ActiveQuests.Data)
         {
-            Npc npc = NpcData.GetNpcByIndex(quest.NpcIndex);
-
-            CreateQuestView(npc);
+            CreateQuestView(quest);
         }
     }
 
-    public void CreateQuestView(Npc npc)
+    public void CreateQuestView(Quest quest)
     {
         QuestView newQuestView = Instantiate(_questViewPrefab, _taskArea);
-        newQuestView.Init(npc);
+        newQuestView.Init(quest);
     }
 }

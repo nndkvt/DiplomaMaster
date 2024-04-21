@@ -57,7 +57,6 @@ public class QuestGenerator : MonoBehaviour
                 timeLimit = _minTimeLimitInMinutes * 60;
             }
         }
-
         /*
         MLModel.ModelInput modelInput = new MLModel.ModelInput(npc.Character, 75, questItem.Level);
 
@@ -65,10 +64,8 @@ public class QuestGenerator : MonoBehaviour
 
         float decreaseRelValue = increaseRelValue / 2;
 
-        return new Quest(questItem, itemNum, timeLimit, increaseRelValue, decreaseRelValue);
+        return new Quest(questItem, itemNum, timeLimit, increaseRelValue, decreaseRelValue, npc.Id);
         */
-
-        // Testing
-        return new Quest(questItem, itemNum, timeLimit, 5, -5, npc.Id);
+        return new Quest(questItem, itemNum, timeLimit, 10, -5, npc.Id);
     }
 }

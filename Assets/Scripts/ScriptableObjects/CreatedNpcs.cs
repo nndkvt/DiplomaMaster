@@ -5,13 +5,12 @@ using UnityEngine;
 public class CreatedNpcs : ScriptableObject
 {
     [SerializeField] private List<Npc> _data;
-    [SerializeField] private bool _clearOnStart;
 
     public List<Npc> Data { get => _data; }
 
-    public void ClearData()
+    public void ClearData(bool isClearData)
     {
-        if (_clearOnStart)
+        if (isClearData)
         {
             _data.Clear();
         }
